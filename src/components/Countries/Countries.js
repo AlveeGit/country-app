@@ -14,6 +14,21 @@ const Countries = () => {
             .then(data => setCountries(data))
     }, [])
 
+    function CountryList(props) {
+        const countries = props.countries.sort((a, b) => {
+          if (a.name.common < b.name.common) return -1;
+          if (a.name.common > b.name.common) return 1;
+          return 0;
+        });
+      
+        return (
+          <ul>
+            {countries.map((country) => (
+              <li key={country.cca2}>{country.name.common}</li>
+            ))}
+          </ul>
+        );
+      }
 
     return (
         <div>
@@ -22,15 +37,14 @@ const Countries = () => {
             <Search></Search>
             <Sort></Sort>
             
-                <div className='countries-container'>
+                <div id='countries-container-id' className='countries-container'>
                     {
-                        countries.map(country =>
+                        countries.map(country  =>  {
                             <Country
-                                country={country}
-                                key={country.cca3}
-                            >
-
-                            </Country>
+                            country={country}
+                            key={country.cca3}>
+                        </Country>
+                        }
                         )
                     }
                 </div>
